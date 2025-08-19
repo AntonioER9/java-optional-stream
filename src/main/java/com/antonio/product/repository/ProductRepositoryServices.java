@@ -44,6 +44,6 @@ public class ProductRepositoryServices implements ProductRepository {
 
     @Override
     public boolean existsById(Long id) {
-        return false;
+        return products.stream().anyMatch(product -> product.getId().equals(id));
     }
 }
