@@ -1,6 +1,6 @@
 package com.antonio.product.repository;
 
-import com.antonio.product.exceptions.InvalidProductException;
+import com.antonio.product.exceptions.InvalidProductDataException;
 import com.antonio.product.exceptions.ProductNotFoundException;
 import com.antonio.product.interfaces.ProductRepository;
 import com.antonio.product.model.Product;
@@ -14,9 +14,9 @@ public class ProductRepositoryServices implements ProductRepository {
     private final List<Product> products = new ArrayList<>();
 
     @Override
-    public List<Product> findAll() throws InvalidProductException {
+    public List<Product> findAll() throws InvalidProductDataException {
         if (products.isEmpty()) {
-            throw new InvalidProductException("La lista está vacia");
+            throw new InvalidProductDataException("La lista está vacia");
         }
 
         return products;

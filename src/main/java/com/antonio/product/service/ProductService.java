@@ -1,6 +1,6 @@
 package com.antonio.product.service;
 
-import com.antonio.product.exceptions.InvalidProductException;
+import com.antonio.product.exceptions.InvalidProductDataException;
 import com.antonio.product.exceptions.ProductNotFoundException;
 import com.antonio.product.interfaces.ProductRepository;
 import com.antonio.product.model.Product;
@@ -15,7 +15,7 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<Product> getAllProducts() throws InvalidProductException {
+    public List<Product> getAllProducts() throws InvalidProductDataException {
         return productRepository.findAll();
     }
 
@@ -23,13 +23,13 @@ public class ProductService {
         return productRepository.findById(id);
     }
 
-    public void saveProduct(Product product) throws InvalidProductException {
+    public void saveProduct(Product product) throws InvalidProductDataException {
         ProductValidator.validate(product);
         if(!productRepository.existsById(product.getId())) {
             productRepository.save(product);
             System.out.println("Producto guardado exitosamente");
         } else {
-            throw new InvalidProductException("El producto que desea agregar ya existe");
+            throw new InvalidProductDataException("El producto que desea agregar ya existe");
         }
     }
 
@@ -43,7 +43,7 @@ public class ProductService {
         }
     }
 
-    public void updateProduct(Product product) throws ProductNotFoundException, InvalidProductException {
+    public void updateProduct(Product product) throws ProductNotFoundException, InvalidProductDataException {
         ProductValidator.validate(product);
         Optional<Product> optinalProduct = productRepository.findById(product.getId());
         if(optinalProduct.isPresent()) {

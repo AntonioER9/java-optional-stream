@@ -1,6 +1,6 @@
 package com.antonio.product.controller;
 
-import com.antonio.product.exceptions.InvalidProductException;
+import com.antonio.product.exceptions.InvalidProductDataException;
 import com.antonio.product.exceptions.ProductNotFoundException;
 import com.antonio.product.model.Product;
 import com.antonio.product.service.ProductService;
@@ -16,26 +16,26 @@ public class ProductController {
         this.productService = productService;
     }
 
-    public void addProduct(Product product) throws InvalidProductException {
+    public void addProduct(Product product) throws InvalidProductDataException {
         Validates.ValidateObject(product, "El producto no puede ser nulo.");
         productService.saveProduct(product);
     }
 
-    public void removeProduct(Long id) throws ProductNotFoundException, InvalidProductException {
+    public void removeProduct(Long id) throws ProductNotFoundException, InvalidProductDataException {
         Validates.validateNumber(id, "El id no puede ser nulo");
         productService.deleteProduct(id);
     }
 
-    public List<Product> getAllProducts() throws InvalidProductException {
+    public List<Product> getAllProducts() throws InvalidProductDataException {
         return productService.getAllProducts();
     }
 
-    public Optional<Product> getProductById(Long id) throws InvalidProductException {
+    public Optional<Product> getProductById(Long id) throws InvalidProductDataException {
         Validates.validateNumber(id, "El id no puede ser nulo");
         return productService.getProductById(id);
     }
 
-    public void updateProduct(Product product) throws ProductNotFoundException, InvalidProductException {
+    public void updateProduct(Product product) throws ProductNotFoundException, InvalidProductDataException {
         Validates.ValidateObject(product, "El producto no puede ser nulo.");
         productService.updateProduct(product);
     }
